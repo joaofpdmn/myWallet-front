@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:wght@400;700&display=swap');
+@media only screen and (max-width: 375px) {
+    body{
+        background-color: #8C11BE;
+        display: flex;
+        box-sizing: border-box;
+        flex-direction: column;
+        padding: 24px;
+        width: 100vw;
+        height: 100vh;
+        min-height: 100vh;
+        font-family: 'Righteous', cursive;
+        font-family: 'Roboto', sans-serif;
+    }
+    .main-title{
+        font-size: 32px;
+        color: white;
+        font-family: "Saira Stencil One";
+        justify-content: center;
+        display: flex;
+    }
+
+    a{
+        text-decoration: none;
+        color: white;
+        font-size: 15px;
+        font-weight: 700;
+        justify-content: center;
+        display: flex;
+    }
+    ion-icon[name="exit-outline"]{
+        color: white;
+        font-size: 23px;
+    }
+    .row{
+        display: flex;
+        justify-content: space-between;
+    }
+}
