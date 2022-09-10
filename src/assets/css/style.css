@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&family=Righteous&display=swap');
+
 @media only screen and (max-width: 375px) {
-    body{
+    body {
         background-color: #8C11BE;
         display: flex;
         box-sizing: border-box;
@@ -9,10 +10,10 @@
         width: 100vw;
         height: 100vh;
         min-height: 100vh;
-        font-family: 'Righteous', cursive;
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Raleway', sans-serif;
     }
-    .main-title{
+
+    .main-title {
         font-size: 32px;
         color: white;
         font-family: "Saira Stencil One";
@@ -20,7 +21,7 @@
         display: flex;
     }
 
-    a{
+    a {
         text-decoration: none;
         color: white;
         font-size: 15px;
@@ -28,12 +29,19 @@
         justify-content: center;
         display: flex;
     }
-    ion-icon[name="exit-outline"]{
+
+    ion-icon[name="exit-outline"] {
         color: white;
         font-size: 23px;
     }
-    .row{
+
+    .row {
         display: flex;
         justify-content: space-between;
+    }
+    .row-justify-content{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
     }
 }
