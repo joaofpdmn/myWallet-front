@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../Common/Header";
 import WalletContainer from "../Components/WalletContainer";
-import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat.js";
 import WalletItens from "../Components/WalletItens";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../Context/UserContext";
@@ -14,11 +12,7 @@ import { Link } from "react-router-dom";
 export default function WelcomePage() {
     const navigate = useNavigate();
     const { login } = useContext(UserContext);
-    const [items, setItems] = useState([]);
-    dayjs.extend(customParseFormat);
-    function timeCalculator() {
-        return dayjs().format("DD/MM");
-    }
+    const [itens, setItens] = useState([]);
     function isEmpty(arr) {
         if (arr.length === 0) {
             return true;
@@ -28,54 +22,34 @@ export default function WelcomePage() {
     useEffect(() => {
         const itensPromise = itensRequest();
         itensPromise.then(response => {
-            setItems(response.data);
+            setItens(response.data);
         }).catch((e) => {
             console.log(e.error);
         })
     }, []);
 
-    /** if array.lenght===0 return não ha registros */
-    const itens = [{
-        date: timeCalculator(),
-        name: "salario",
-        valor: Number(800),
-        type: "entry"
-    },
-    {
-        date: timeCalculator(),
-        name: "camisa time",
-        valor: Number(-75),
-        type: "debt"
-    }, {
-        date: timeCalculator(),
-        name: "maraca",
-        valor: Number(-50),
-        type: "debt"
-    }];
-    const isArrEmpty = isEmpty(itens);
+    let saldo = 0;
     itens.map((item, index) => {
-        if (item.valor < 0) {
-            return item.valor * (-1);
-        }
+        saldo += item.price;
     })
-    /**if entry === green
-     * if saida === red
-     */
+    /** if array.lenght===0 return não ha registros */
+    const isArrEmpty = isEmpty(itens);
+    console.log(login);
     return (
         <>
             <Header>
-                <p>Teste</p>
+                <p>Olá, {login.name}</p>
                 <ion-icon name="exit-outline"></ion-icon>
             </Header>
             <WalletContainer value={isArrEmpty}>
                 <p>Não há registros de entrada ou saída</p>
                 {itens.map((item, index) =>
-                    <WalletItens value={isArrEmpty} date={item.date} name={item.name} price={item.valor} type={item.type} />
+                    <WalletItens value={isArrEmpty} date={item.date} name={item.name} price={item.price} />
                 )}
-                <div className="row-justify-content">
+                <SaldoContainer value={isArrEmpty}>
                     <h4>SALDO</h4>
-                    <h5>500,45</h5>
-                </div>
+                    <h5>{saldo}</h5>
+                </SaldoContainer>
             </WalletContainer>
             <div className="row">
                 <Link to="/entry/entrada">
@@ -107,13 +81,22 @@ border-radius: 5px;
 color: white;
 box-sizing: border-box;
 padding: 10px;
-
 p{
     font-weight: 700;
     display: flex;
     word-wrap: wrap;
     max-width: 64px;
 }
+`
+const SaldoContainer = styled.div`
+    display: ${props => props.value ? "none" : "flex"};
+    justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    padding: 5px;
 `
 
 

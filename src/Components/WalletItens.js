@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function WalletItens({ value, name, type, date, price }) {
+export default function WalletItens({ value, name, date, price }) {
     if (value) {
         return;
     }
@@ -34,7 +34,7 @@ h1{
 }
 
 h3{
-    color: ${props => props.type === 'debt' ? '#C70000' : '#03AC00'};
+    color: ${props => (props.price < 0) ? '#C70000' : '#03AC00'};
 }
 
 `

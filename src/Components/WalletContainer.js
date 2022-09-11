@@ -13,7 +13,7 @@ border-radius: 5px;
 box-sizing: border-box;
 padding: 10px;
 flex-direction: column;
-
+position: relative;
 p{
     font-size: 20px;
     color: #868686;

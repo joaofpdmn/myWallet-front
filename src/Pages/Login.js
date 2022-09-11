@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../Common/Button";
 import Input from "../Common/Input";
@@ -12,11 +12,13 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    if (login !== null) {
-        alert('Estamos te transferindo para a tela inicial!');
-        localStorage.setItem('myToken', login.token);
-        navigate('/home');
-    }
+    useEffect(() => {
+        if (login !== null) {
+            alert('Login encontrado! Estamos te transferindo para a tela inicial!');
+            navigate('/home');
+        }
+    }, []);
+
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -28,10 +30,9 @@ export default function Login() {
         loginPromise.then(response => {
             setLogin(response.data);
             setUserData(response.data);
-            localStorage.setItem('myToken', response.data.token);
             alert('Login realizado com sucesso!');
             navigate('/home');
-        }).catch( e => {
+        }).catch(e => {
             alert('Login inválido!');
             window.location.reload();
         })
@@ -45,8 +46,8 @@ export default function Login() {
             </div>
             <Padding value={25} />
             <form onSubmit={handleSubmit}>
-                <Input placeholder="E-mail" type="email" onChange={e => setEmail(e.target.value)}/>
-                <Input placeholder="Senha" type="password" onChange={e => setPassword(e.target.value)}/>
+                <Input placeholder="E-mail" type="email" onChange={e => setEmail(e.target.value)} />
+                <Input placeholder="Senha" type="password" onChange={e => setPassword(e.target.value)} />
                 <Button type="submit">Entrar</Button>
             </form>
             <Link to='/signup'><a href="">Primeira vez? Cadastre-se!</a></Link>
