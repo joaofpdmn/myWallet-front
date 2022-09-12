@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 export default function WelcomePage() {
     const navigate = useNavigate();
-    const { login } = useContext(UserContext);
+    const { login, setLogin } = useContext(UserContext);
     const [itens, setItens] = useState([]);
     function isEmpty(arr) {
         if (arr.length === 0) {
@@ -29,24 +29,37 @@ export default function WelcomePage() {
     }, []);
 
     let saldo = 0;
+    Number(saldo);
     itens.map((item, index) => {
+        Number(item.price);
         saldo += item.price;
     })
+
+    function exitClick() {
+        if (window.confirm("Você realmente deseja sair?")) {
+            setLogin({});
+            navigate('/');
+        }
+    }
+
     /** if array.lenght===0 return não ha registros */
     const isArrEmpty = isEmpty(itens);
-    console.log(login);
     return (
         <>
             <Header>
                 <p>Olá, {login.name}</p>
-                <ion-icon name="exit-outline"></ion-icon>
+                <div onClick={exitClick}>
+                    <ion-icon name="exit-outline"></ion-icon>
+                </div>
             </Header>
             <WalletContainer value={isArrEmpty}>
                 <p>Não há registros de entrada ou saída</p>
                 {itens.map((item, index) =>
-                    <WalletItens value={isArrEmpty} date={item.date} name={item.name} price={item.price} />
+                    <SubContainer price={item.price} value={isArrEmpty} >
+                        <WalletItens value={isArrEmpty} date={item.date} name={item.name} price={item.price} />
+                    </SubContainer>
                 )}
-                <SaldoContainer value={isArrEmpty}>
+                <SaldoContainer value={isArrEmpty} price={saldo}>
                     <h4>SALDO</h4>
                     <h5>{saldo}</h5>
                 </SaldoContainer>
@@ -97,6 +110,19 @@ const SaldoContainer = styled.div`
     left: 0;
     box-sizing: border-box;
     padding: 5px;
+
+    h5{
+        color: ${props => (props.price < 0) ? '#C70000' : '#03AC00'};
+    }
+`
+
+const SubContainer = styled.div`
+    display: ${props => props.value ? "none" : "flex"};
+    justify-content: space-between;
+    width: 100%;
+    h3{
+    color: ${props => (props.price < 0) ? '#C70000' : '#03AC00'};
+}
 `
 
 

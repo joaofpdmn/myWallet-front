@@ -11,11 +11,19 @@ function signUpRequest(body){
 }
 
 function itensRequest(){
-    return axios.get(`${APIprefix}/itens`);
+    const token = localStorage.getItem('myToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+    return axios.get(`${APIprefix}/itens`, config);   
 }
 
 function itensEntryRequest(body, id){
-    return axios.post(`${APIprefix}/entry/${id}`, body);
+    const token = localStorage.getItem('myToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+    return axios.post(`${APIprefix}/entry/${id}`, body, config);
 }
 export {
     LoginRequest,

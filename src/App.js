@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
-          <Route path='/home' element={<WelcomePage />} />
+          <Route path='/home/:id' element={<WelcomePage />} />
           <Route path='/entry/:id' element={<NewEntry />} />
         </Routes>
       </UserContext.Provider >

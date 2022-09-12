@@ -5,6 +5,7 @@ export default function WalletItens({ value, name, date, price }) {
     if (value) {
         return;
     }
+    Number(price);
     return (
         <Container> 
             <div>

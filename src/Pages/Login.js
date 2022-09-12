@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../Common/Button";
 import Input from "../Common/Input";
@@ -12,13 +12,6 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    useEffect(() => {
-        if (login !== null) {
-            alert('Login encontrado! Estamos te transferindo para a tela inicial!');
-            navigate('/home');
-        }
-    }, []);
-
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -30,14 +23,15 @@ export default function Login() {
         loginPromise.then(response => {
             setLogin(response.data);
             setUserData(response.data);
+            localStorage.setItem('myToken', response.data.token);
+            console.log(response.data.token);
             alert('Login realizado com sucesso!');
-            navigate('/home');
+            navigate(`/home/${login._id}`);
         }).catch(e => {
             alert('Login inválido!');
             window.location.reload();
         })
     }
-
     return (
         <>
             <Padding value={160} />
@@ -50,7 +44,7 @@ export default function Login() {
                 <Input placeholder="Senha" type="password" onChange={e => setPassword(e.target.value)} />
                 <Button type="submit">Entrar</Button>
             </form>
-            <Link to='/signup'><a href="">Primeira vez? Cadastre-se!</a></Link>
+            <Link to='/signup'><a>Primeira vez? Cadastre-se!</a></Link>
         </>
     )
 }

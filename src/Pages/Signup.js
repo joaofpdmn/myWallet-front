@@ -18,7 +18,8 @@ export default function SignUp() {
             name: name,
             email: email,
             password: password,
-            repeatPassword: repeatPassword
+            repeatPassword: repeatPassword, 
+            token: ''
         };
         const signUpPromise = signUpRequest(body);
         signUpPromise.then(response => {
@@ -44,7 +45,7 @@ export default function SignUp() {
                 <Input placeholder="Confirme a senha" type="password" onChange={e => setRepeatPassword(e.target.value)} />
                 <Button type="submit">Cadastrar</Button>
             </form>
-            <Link to='/'><a href="">Já tem uma conta? Entre agora!</a></Link>
+            <Link to='/'><a>Já tem uma conta? Entre agora!</a></Link>
         </>
     )
 }
